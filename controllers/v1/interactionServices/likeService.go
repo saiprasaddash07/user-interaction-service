@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 
 	"github.com/saiprasaddash07/user-interaction-service/constants"
 	"github.com/saiprasaddash07/user-interaction-service/helpers/DAO"
@@ -13,7 +12,7 @@ import (
 	"github.com/saiprasaddash07/user-interaction-service/services/redis"
 )
 
-func InsertLike(likeObj *request.Interaction) error  {
+func InsertLike(likeObj *request.Interaction) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -28,7 +27,6 @@ func InsertLike(likeObj *request.Interaction) error  {
 		return errors.New(constants.ALREADY_LIKED)
 	}
 
-	log.Println(likeObjKey)
 	go redis.Set(likeObjKey, "1", constants.CACHE_TTL_VERY_LONG)
 
 	go producer.Produce(ctx, "sample-topic", *likeObj)

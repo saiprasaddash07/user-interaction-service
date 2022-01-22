@@ -21,10 +21,6 @@ func Produce(ctx context.Context, topic string, data request.Interaction) {
 		BatchBytes:   10e4,
 		BatchTimeout: time.Duration(time.Minute * 1),
 	})
-	log.Println(writer)
-
-	log.Println(strconv.FormatInt(data.ContentId, 10))
-	log.Println(strconv.FormatInt(data.UserId, 10))
 
 	err := writer.WriteMessages(context.TODO(), kafka.Message{
 		Key:   []byte(strconv.FormatInt(data.ContentId, 10)),
