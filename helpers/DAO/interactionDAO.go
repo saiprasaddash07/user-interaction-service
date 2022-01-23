@@ -47,3 +47,15 @@ func DoesUserAlreadyLiked(userId int64, contentId int64) bool {
 	}
 	return true
 }
+
+func DoesUserAlreadyRead(userId int64, contentId int64) bool {
+	var count int64
+	err := db.GetClient(constants.DB_READER).QueryRow("SELECT COUNT(*) AS count FROM readInteraction WHERE userId=? AND contentId=?;", userId, contentId).Scan(&count)
+	if err != nil {
+		return false
+	}
+	if count == 0 {
+		return false
+	}
+	return true
+}

@@ -1,13 +1,14 @@
 package DAO
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/saiprasaddash07/user-interaction-service/constants"
 	"github.com/saiprasaddash07/user-interaction-service/services/db"
 )
 
-func WriteBatch(valuesToWrite []interface{}, writeSql string) error {
+func WriteBatch(valuesToWrite []interface{}, writeSql string, primaryKey string) error {
 	writeSql = writeSql[0 : len(writeSql)-2]
 	stmt, err := db.GetClient(constants.DB_WRITER).Prepare(writeSql)
 
@@ -16,7 +17,7 @@ func WriteBatch(valuesToWrite []interface{}, writeSql string) error {
 		return err
 	}
 
-	writeSql += " ON DUPLICATE KEY UPDATE likeId = likeId"
+	writeSql += fmt.Sprintf(" ON DUPLICATE KEY UPDATE %s = %s", primaryKey, primaryKey)
 	_, err = stmt.Exec(valuesToWrite...)
 	if err != nil {
 		log.Println(err.Error())

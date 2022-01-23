@@ -25,7 +25,13 @@ type Config struct {
 	RedisPassword        string
 	CacheEnabled         bool
 	KafkaBrokers         []string
-	KafkaViewTopic       string
+	KafkaLikeTopic       string
+	KafkaReadTopic       string
+	LikeChannelSize      int
+	ReadChannelSize      int
+	WaitTimeForConsumer  int
+	BatchSizeForProducer int
+	BatchTimeout         int
 }
 
 var config Config
@@ -71,7 +77,13 @@ func init() {
 	config.RedisPassword = os.Getenv("REDIS_PASSWORD")
 	config.CacheEnabled, _ = strconv.ParseBool(os.Getenv("CACHE_ENABLED"))
 	config.KafkaBrokers = strings.Split(os.Getenv("KAFKA_BROKERS"), ",")
-	config.KafkaViewTopic = os.Getenv("KAFKA_VIEW_TOPIC")
+	config.KafkaLikeTopic = os.Getenv("KAFKA_LIKE_TOPIC")
+	config.KafkaReadTopic = os.Getenv("KAFKA_READ_TOPIC")
+	config.LikeChannelSize, _ = strconv.Atoi(os.Getenv("LIKE_CHANNEL_SIZE"))
+	config.ReadChannelSize, _ = strconv.Atoi(os.Getenv("READ_CHANNEL_SIZE"))
+	config.WaitTimeForConsumer, _ = strconv.Atoi(os.Getenv("WAIT_TIME_FOR_CONSUMER"))
+	config.BatchSizeForProducer, _ = strconv.Atoi(os.Getenv("BATCH_SIZE_FOR_PRODUCER"))
+	config.BatchTimeout, _ = strconv.Atoi(os.Getenv("BATCH_TIMEOUT"))
 }
 
 func Get() Config {

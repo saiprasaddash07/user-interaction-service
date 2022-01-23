@@ -14,6 +14,7 @@ func main() {
 	defer cancel()
 	config := config.Get()
 	log.Println(config.KafkaBrokers)
-	go consumer.Consume(ctx, config.KafkaViewTopic)
+	go consumer.ConsumeLikes(ctx, config.KafkaLikeTopic)
+	go consumer.ConsumeReads(ctx, config.KafkaReadTopic)
 	server.Init()
 }

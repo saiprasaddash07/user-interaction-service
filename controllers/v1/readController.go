@@ -12,15 +12,15 @@ import (
 	"github.com/saiprasaddash07/user-interaction-service/helpers/util"
 )
 
-func LikeHandler(c *gin.Context) {
-	likeFromContext, ok := c.Get("interactions")
+func ReadHandler(c *gin.Context) {
+	readFromContext, ok := c.Get("interactions")
 	if !ok {
 		c.JSON(http.StatusBadRequest, util.SendErrorResponse(errors.New(constants.INVALID_REQUEST)))
 		return
 	}
-	likeObj := likeFromContext.(*request.Interaction)
+	readObj := readFromContext.(*request.Interaction)
 
-	err := interactionServices.InsertLike(likeObj)
+	err := interactionServices.InsertRead(readObj)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, util.SendErrorResponse(err))
@@ -29,7 +29,7 @@ func LikeHandler(c *gin.Context) {
 
 	res := response.Response{
 		Status:  constants.API_SUCCESS_STATUS,
-		Message: constants.LIKE_MESSAGE,
+		Message: constants.READ_MESSAGE,
 	}
 	c.JSON(http.StatusOK, util.StructToJSON(res))
 }

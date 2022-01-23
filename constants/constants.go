@@ -55,6 +55,7 @@ const (
 	ERROR_CONTENT_NOT_FOUND           = "content not found"
 	ERROR_INVALID_INTERACTION_DETAILS = "invalid interaction details"
 	ALREADY_LIKED                     = "user has already liked the post"
+	ALREADY_READ                      = "user has already read the post"
 )
 
 const (
@@ -69,6 +70,7 @@ const (
 // response messages
 const (
 	LIKE_MESSAGE = "post liked"
+	READ_MESSAGE = "post read"
 )
 
 // required request body fields
