@@ -47,6 +47,7 @@ const (
 	ERROR_USER_IDS_NOT_FOUND          = "userIds not found"
 	INVALID_REQUEST                   = "invalid json request body"
 	INVALID_MAIL_ID                   = "invalid email address provided"
+	INVALID_INTERNAL_REQUEST          = "unauthorized request"
 	ERROR_IN_HASHING_PASSWORD         = "error while hashing password"
 	ERROR_IN_STORING_UNIQUE_USER      = "the user already exists"
 	ERROR_IN_AUTHENTICATING_USER      = "the password is incorrect"

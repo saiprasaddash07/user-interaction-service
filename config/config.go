@@ -33,6 +33,7 @@ type Config struct {
 	BatchSizeForProducer   int
 	BatchTimeout           int
 	MaxNumberOfTopContents int
+	InteractionHeader      string
 }
 
 var config Config
@@ -86,6 +87,7 @@ func init() {
 	config.BatchSizeForProducer, _ = strconv.Atoi(os.Getenv("BATCH_SIZE_FOR_PRODUCER"))
 	config.BatchTimeout, _ = strconv.Atoi(os.Getenv("BATCH_TIMEOUT"))
 	config.MaxNumberOfTopContents, _ = strconv.Atoi(os.Getenv("MAX_NUMBER_OF_TOP_CONTENTS"))
+	config.InteractionHeader = os.Getenv("INTERACTION_HEADER")
 }
 
 func Get() Config {
