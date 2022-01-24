@@ -10,7 +10,7 @@ import (
 
 func DoesContentExist(contentId int64) error {
 	var count int64
-	err := db.GetClient(constants.DB_READER).QueryRow("SELECT COUNT(*) AS count FROM contents WHERE contentId=?;", contentId).Scan(&count)
+	err := db.GetClient(constants.DB_READER).QueryRow("SELECT COUNT(*) AS count FROM content WHERE contentId=?;", contentId).Scan(&count)
 
 	if err != nil {
 		return err
@@ -74,6 +74,7 @@ func GetTopContents(limit int) ([]int64, error) {
 					content c
 					JOIN likes l ON l.contentId = c.contentId
 					JOIN readInteraction rI ON c.contentId = rI.contentId
+					GROUP BY c.contentId
 			) AS interaction
 		ORDER BY
 			likes DESC,
