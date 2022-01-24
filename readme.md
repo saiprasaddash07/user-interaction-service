@@ -49,3 +49,6 @@ go build
 # Run backend (:4000)
 go run .
 ```
+
+## HLD User Interaction Service
+<img src="HLD.png">
