@@ -10,28 +10,29 @@ import (
 )
 
 type Config struct {
-	AppName              string
-	AppEnv               string
-	DBUserName           string
-	DBHostReader         string
-	DBHostWriter         string
-	DBPort               string
-	DBPassword           string
-	DBName               string
-	DBMaxIdleConnections int
-	DBMaxOpenConnections int
-	ServerPort           string
-	RedisAddress         string
-	RedisPassword        string
-	CacheEnabled         bool
-	KafkaBrokers         []string
-	KafkaLikeTopic       string
-	KafkaReadTopic       string
-	LikeChannelSize      int
-	ReadChannelSize      int
-	WaitTimeForConsumer  int
-	BatchSizeForProducer int
-	BatchTimeout         int
+	AppName                string
+	AppEnv                 string
+	DBUserName             string
+	DBHostReader           string
+	DBHostWriter           string
+	DBPort                 string
+	DBPassword             string
+	DBName                 string
+	DBMaxIdleConnections   int
+	DBMaxOpenConnections   int
+	ServerPort             string
+	RedisAddress           string
+	RedisPassword          string
+	CacheEnabled           bool
+	KafkaBrokers           []string
+	KafkaLikeTopic         string
+	KafkaReadTopic         string
+	LikeChannelSize        int
+	ReadChannelSize        int
+	WaitTimeForConsumer    int
+	BatchSizeForProducer   int
+	BatchTimeout           int
+	MaxNumberOfTopContents int
 }
 
 var config Config
@@ -84,6 +85,7 @@ func init() {
 	config.WaitTimeForConsumer, _ = strconv.Atoi(os.Getenv("WAIT_TIME_FOR_CONSUMER"))
 	config.BatchSizeForProducer, _ = strconv.Atoi(os.Getenv("BATCH_SIZE_FOR_PRODUCER"))
 	config.BatchTimeout, _ = strconv.Atoi(os.Getenv("BATCH_TIMEOUT"))
+	config.MaxNumberOfTopContents, _ = strconv.Atoi(os.Getenv("MAX_NUMBER_OF_TOP_CONTENTS"))
 }
 
 func Get() Config {

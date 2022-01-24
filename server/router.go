@@ -17,6 +17,7 @@ func NewRouter() *gin.Engine {
 		{
 			interactionGroupV1.POST("/like", middlewares.GetRequestBody(constants.LIKE_POST_REQUIRED_FIELDS, constants.LIKE_POST_OPTIONAL_FIELDS), v1.LikeHandler)
 			interactionGroupV1.POST("/read", middlewares.GetRequestBody(constants.LIKE_POST_REQUIRED_FIELDS, constants.LIKE_POST_OPTIONAL_FIELDS), v1.ReadHandler)
+			interactionGroupV1.GET("/topContents", v1.TopContentsHandler)
 		}
 	}
 

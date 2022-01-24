@@ -59,3 +59,41 @@ func DoesUserAlreadyRead(userId int64, contentId int64) bool {
 	}
 	return true
 }
+
+func GetTopContents(limit int) ([]int64, error) {
+	rows, err := db.GetClient(constants.DB_READER).Query(`
+		SELECT
+			contentId
+		FROM
+			(
+				SELECT
+					c.contentId AS contentId,
+					COUNT(l.likeId) AS likes,
+					COUNT(rI.readId) AS readsContent
+				FROM
+					content c
+					JOIN likes l ON l.contentId = c.contentId
+					JOIN readInteraction rI ON c.contentId = rI.contentId
+			) AS interaction
+		ORDER BY
+			likes DESC,
+			readsContent DESC
+		LIMIT ?;
+	`, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var contentIds []int64
+	for rows.Next() {
+		var contentId int64
+		err = rows.Scan(&contentId)
+		if err != nil {
+			return nil, err
+		}
+		contentIds = append(contentIds, contentId)
+	}
+
+	return contentIds, nil
+}

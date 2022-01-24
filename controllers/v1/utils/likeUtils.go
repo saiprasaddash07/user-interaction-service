@@ -55,14 +55,14 @@ func ValidateInteractionDetails(interaction *request.Interaction) error {
 		return errors.New(constants.ERROR_INVALID_INTERACTION_DETAILS)
 	}
 
-	// contentKey := fmt.Sprintf("content:%d:exist", interaction.ContentId)
-	// contentExist, _ := redis.Get(contentKey)
-	// if contentExist != "1" {
-	// 	if err := DAO.DoesContentExist(interaction.ContentId); err != nil {
-	// 		return err
-	// 	}
-	// 	go redis.Set(contentKey, "1", constants.CACHE_TTL_VERY_LONG)
-	// }
+	contentKey := fmt.Sprintf("content:%d:exist", interaction.ContentId)
+	contentExist, _ := redis.Get(contentKey)
+	if contentExist != "1" {
+		if err := DAO.DoesContentExist(interaction.ContentId); err != nil {
+			return err
+		}
+		go redis.Set(contentKey, "1", constants.CACHE_TTL_VERY_LONG)
+	}
 	
 	userKey := fmt.Sprintf("user:%d:exist", interaction.UserId)
 	userExist, _ := redis.Get(userKey)
